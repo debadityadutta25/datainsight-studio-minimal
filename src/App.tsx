@@ -6,8 +6,6 @@ import {
   Flame,
   FileSpreadsheet,
   Layers,
-  Sparkles,
-  ArrowRight,
 } from 'lucide-react';
 import {
   DatasetStats,
@@ -207,7 +205,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-black text-zinc-100 flex flex-col font-sans">
       {/* Top Navigation */}
       <Navbar
         metadata={metadata}
@@ -231,19 +229,19 @@ export function App() {
         ) : (
           <div className="space-y-6">
             {/* File Info Bar with Sheet Selector (if Excel) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 backdrop-blur-sm">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-zinc-950 border border-zinc-800/90">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                  <FileSpreadsheet className="w-5 h-5" />
+                <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                  <FileSpreadsheet className="w-4 h-4" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h2 className="text-base font-bold text-slate-100 flex items-center gap-2">
+                  <h2 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">
                     <span>{metadata.name}</span>
-                    <span className="text-xs uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono border border-slate-700">
+                    <span className="text-[10px] uppercase px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
                       {metadata.type}
                     </span>
                   </h2>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-[11px] text-zinc-500 font-mono">
                     {metadata.rowCount.toLocaleString()} rows • {metadata.columnCount} columns •{' '}
                     {(metadata.size / 1024).toFixed(1)} KB
                   </p>
@@ -252,16 +250,16 @@ export function App() {
 
               {/* Multi-sheet selector for Excel */}
               {metadata.sheetNames && metadata.sheetNames.length > 1 && (
-                <div className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700 text-xs">
-                  <Layers className="w-3.5 h-3.5 text-indigo-400" />
-                  <span className="text-slate-400">Sheet:</span>
+                <div className="flex items-center gap-2 bg-zinc-900 px-2.5 py-1 rounded-md border border-zinc-800 text-xs font-mono">
+                  <Layers className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
+                  <span className="text-zinc-500">Sheet:</span>
                   <select
                     value={metadata.activeSheet}
                     onChange={(e) => handleSheetChange(e.target.value)}
-                    className="bg-transparent text-slate-200 font-medium focus:outline-none cursor-pointer"
+                    className="bg-transparent text-zinc-200 focus:outline-none cursor-pointer"
                   >
                     {metadata.sheetNames.map((sheet) => (
-                      <option key={sheet} value={sheet} className="bg-slate-900">
+                      <option key={sheet} value={sheet} className="bg-black">
                         {sheet}
                       </option>
                     ))}
@@ -270,64 +268,82 @@ export function App() {
               )}
             </div>
 
-            {/* Navigation Tabs */}
-            <div className="flex items-center gap-2 border-b border-slate-800 pb-2 overflow-x-auto">
+            {/* Minimalist Navigation Tabs */}
+            <div className="flex items-center gap-1.5 border-b border-zinc-850 pb-2 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('stats')}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
                   activeTab === 'stats'
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <BarChart3 className="w-4 h-4" />
-                <span>1. Data Profiler & Stats</span>
+                <BarChart3 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span>1. Profiler & Stats</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('query')}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
                   activeTab === 'query'
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Sliders className="w-4 h-4" />
-                <span>2. AI Query Builder</span>
+                <Sliders className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span>2. Query Builder</span>
                 {queryState.selectedColumns.length > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full bg-slate-900/60 text-[10px] font-mono">
-                    {queryState.selectedColumns.length} cols
+                  <span
+                    className={`px-1 py-0.2 rounded text-[10px] ${
+                      activeTab === 'query'
+                        ? 'bg-black/10 text-black'
+                        : 'bg-zinc-900 text-zinc-500'
+                    }`}
+                  >
+                    {queryState.selectedColumns.length}
                   </span>
                 )}
               </button>
 
               <button
                 onClick={() => setActiveTab('sql')}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
                   activeTab === 'sql'
-                    ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Database className="w-4 h-4" />
-                <span>3. Generated SQL</span>
-                <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-slate-800 text-indigo-300">
+                <Database className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span>3. SQL</span>
+                <span
+                  className={`text-[10px] uppercase px-1 py-0.2 rounded ${
+                    activeTab === 'sql'
+                      ? 'bg-black/10 text-black'
+                      : 'bg-zinc-900 text-zinc-500'
+                  }`}
+                >
                   {queryState.dialect}
                 </span>
               </button>
 
               <button
                 onClick={() => setActiveTab('pyspark')}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold transition ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
                   activeTab === 'pyspark'
-                    ? 'bg-amber-600 text-white shadow-lg shadow-amber-600/25'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                    ? 'bg-white text-black font-semibold shadow-sm'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Flame className="w-4 h-4" />
-                <span>4. Generated PySpark</span>
-                <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800 text-amber-300">
-                  {queryState.sparkConfig.mode === 'dataframe' ? 'DataFrame API' : 'Spark SQL'}
+                <Flame className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <span>4. PySpark</span>
+                <span
+                  className={`text-[10px] px-1 py-0.2 rounded ${
+                    activeTab === 'pyspark'
+                      ? 'bg-black/10 text-black'
+                      : 'bg-zinc-900 text-zinc-500'
+                  }`}
+                >
+                  {queryState.sparkConfig.mode === 'dataframe' ? 'API' : 'SQL'}
                 </span>
               </button>
             </div>
@@ -377,13 +393,11 @@ export function App() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-4 px-6 text-center text-xs text-slate-500">
+      {/* Minimalist Footer */}
+      <footer className="border-t border-zinc-900 py-3 px-6 text-center text-[11px] font-mono text-zinc-600">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <span>DataInsight Studio • 100% Client-Side Private • Hosted on GitHub Pages</span>
-          <span className="flex items-center gap-1 text-slate-400">
-            Powered by Offline Smart AI Parser, PapaParse & SheetJS
-          </span>
+          <span>DataInsight Studio • 100% Client-Side Private</span>
+          <span>Offline Profiler & Query Engine</span>
         </div>
       </footer>
     </div>
