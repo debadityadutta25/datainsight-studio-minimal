@@ -98,11 +98,25 @@ export function parseNaturalLanguageQuery(prompt: string, columns: ColumnStats[]
   if (selectMatch && selectMatch[1]) {
     const rawTokens = selectMatch[1].split(/,|and|\s+/).filter(Boolean);
     for (const token of rawTokens) {
-      if (['the', 'all', 'rows', 'records', 'data', 'me', 'top', 'bottom'].includes(token.toLowerCase())) continue;
+      if (['the', 'all', 'rows', 'records', 'data', 'me', 'top', 'bottom', 'query'].includes(token.toLowerCase())) continue;
       const foundCol = findColumn(token);
       if (foundCol && !selectedColumns.some((sc) => sc.column === foundCol)) {
         selectedColumns.push({
           column: foundCol,
+          aggregation: 'NONE',
+        });
+      }
+    }
+  }
+
+  // Also scan for direct column mentions anywhere in prompt
+  for (const c of columns) {
+    const colLower = c.name.toLowerCase();
+    const wordPattern = new RegExp(`(^|[^a-z0-9_])${colLower}([^a-z0-9_]|$)`, 'i');
+    if (wordPattern.test(p)) {
+      if (!selectedColumns.some((sc) => sc.column === c.name) && !groupBy.includes(c.name)) {
+        selectedColumns.push({
+          column: c.name,
           aggregation: 'NONE',
         });
       }
@@ -225,9 +239,14 @@ export function parseNaturalLanguageQuery(prompt: string, columns: ColumnStats[]
           alias: `total_${numCol.name}`,
         });
       }
+    } else if (p.includes('all') || p.includes('*') || p === '' || p.includes('everything') || p.includes('whole') || p.includes('full')) {
+      // Pick all columns
+      columns.forEach((c) => {
+        selectedColumns.push({ column: c.name, aggregation: 'NONE' });
+      });
     } else {
-      // Pick first 5-8 columns
-      columns.slice(0, 6).forEach((c) => {
+      // Pick first 8 columns
+      columns.slice(0, 8).forEach((c) => {
         selectedColumns.push({ column: c.name, aggregation: 'NONE' });
       });
     }

@@ -13,6 +13,9 @@ import {
   Check,
   CheckSquare,
   Square,
+  Database,
+  Flame,
+  Sliders,
 } from 'lucide-react';
 import { DatasetStats, DataType, FileMetadata, SelectedColumn } from '../types';
 
@@ -24,6 +27,7 @@ interface StatsDashboardProps {
   selectedColumns: SelectedColumn[];
   onToggleColumn: (columnName: string) => void;
   onSelectAllColumns: (selectAll: boolean) => void;
+  onNavigateTab?: (tab: 'stats' | 'query' | 'sql' | 'pyspark') => void;
 }
 
 export const StatsDashboard: React.FC<StatsDashboardProps> = ({
@@ -34,6 +38,7 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
   selectedColumns,
   onToggleColumn,
   onSelectAllColumns,
+  onNavigateTab,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState<string>('all');
@@ -215,10 +220,10 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-2 self-end sm:self-center">
+          <div className="flex items-center gap-2 flex-wrap self-end sm:self-center">
             <button
               onClick={() => onSelectAllColumns(selectedColumns.length !== headers.length)}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 transition font-mono"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm rounded-lg bg-zinc-900 hover:bg-zinc-850 text-zinc-200 border border-zinc-800 transition font-mono"
             >
               {selectedColumns.length === headers.length ? (
                 <>
@@ -232,6 +237,28 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
                 </>
               )}
             </button>
+
+            {onNavigateTab && (
+              <>
+                <button
+                  onClick={() => onNavigateTab('sql')}
+                  className="inline-flex items-center gap-2 px-4 py-1.5 text-xs sm:text-sm rounded-lg bg-white hover:bg-zinc-200 text-black font-semibold transition font-mono shadow-sm"
+                  title="Generate SQL query for selected columns"
+                >
+                  <Database className="w-4 h-4" strokeWidth={1.5} />
+                  <span>Generate SQL ({selectedColumns.length})</span>
+                </button>
+
+                <button
+                  onClick={() => onNavigateTab('pyspark')}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 text-xs sm:text-sm rounded-lg bg-zinc-900 hover:bg-zinc-850 text-zinc-200 border border-zinc-800 transition font-mono"
+                  title="Generate PySpark code for selected columns"
+                >
+                  <Flame className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+                  <span>PySpark</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
 
@@ -625,6 +652,44 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Sticky Action Bar for Selected Columns */}
+      {selectedColumns.length > 0 && onNavigateTab && (
+        <div className="sticky bottom-4 z-40 p-4 rounded-xl bg-zinc-950/95 backdrop-blur-md border border-zinc-700 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-mono text-zinc-300">
+            <CheckSquare className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
+            <span>
+              <strong className="text-white">{selectedColumns.length}</strong> column(s) selected
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 font-mono text-xs sm:text-sm flex-wrap">
+            <button
+              onClick={() => onNavigateTab('sql')}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-zinc-200 text-black font-semibold transition shadow-sm"
+            >
+              <Database className="w-4 h-4" strokeWidth={1.5} />
+              <span>Generate SQL Query →</span>
+            </button>
+
+            <button
+              onClick={() => onNavigateTab('pyspark')}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 transition font-medium"
+            >
+              <Flame className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+              <span>Generate PySpark →</span>
+            </button>
+
+            <button
+              onClick={() => onNavigateTab('query')}
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition font-medium"
+            >
+              <Sliders className="w-4 h-4" strokeWidth={1.5} />
+              <span>Query Builder</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

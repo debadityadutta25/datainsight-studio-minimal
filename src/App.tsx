@@ -358,6 +358,7 @@ export function App() {
                 selectedColumns={queryState.selectedColumns}
                 onToggleColumn={handleToggleColumn}
                 onSelectAllColumns={handleSelectAllColumns}
+                onNavigateTab={setActiveTab}
               />
             )}
 
@@ -365,7 +366,9 @@ export function App() {
               <QueryBuilder
                 columns={stats.columns}
                 queryState={queryState}
+                metadata={metadata}
                 onChange={setQueryState}
+                onNavigateTab={setActiveTab}
               />
             )}
 
