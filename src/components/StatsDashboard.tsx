@@ -15,7 +15,6 @@ import {
   Square,
   Database,
   Flame,
-  Sliders,
 } from 'lucide-react';
 import { DatasetStats, DataType, FileMetadata, SelectedColumn } from '../types';
 
@@ -27,7 +26,7 @@ interface StatsDashboardProps {
   selectedColumns: SelectedColumn[];
   onToggleColumn: (columnName: string) => void;
   onSelectAllColumns: (selectAll: boolean) => void;
-  onNavigateTab?: (tab: 'stats' | 'query' | 'sql' | 'pyspark') => void;
+  onNavigateTab?: (tab: 'stats' | 'sql' | 'pyspark') => void;
 }
 
 export const StatsDashboard: React.FC<StatsDashboardProps> = ({
@@ -678,14 +677,6 @@ export const StatsDashboard: React.FC<StatsDashboardProps> = ({
             >
               <Flame className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
               <span>Generate PySpark →</span>
-            </button>
-
-            <button
-              onClick={() => onNavigateTab('query')}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition font-medium"
-            >
-              <Sliders className="w-4 h-4" strokeWidth={1.5} />
-              <span>Query Builder</span>
             </button>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   BarChart3,
-  Sliders,
   Database,
   Flame,
   FileSpreadsheet,
@@ -26,11 +25,10 @@ import { SAMPLE_DATASETS, SampleDataset } from './utils/sampleData';
 import { Navbar } from './components/Navbar';
 import { FileUploader } from './components/FileUploader';
 import { StatsDashboard } from './components/StatsDashboard';
-import { QueryBuilder } from './components/QueryBuilder';
 import { SQLViewer } from './components/SQLViewer';
 import { PySparkViewer } from './components/PySparkViewer';
 
-type ActiveTab = 'stats' | 'query' | 'sql' | 'pyspark';
+type ActiveTab = 'stats' | 'sql' | 'pyspark';
 
 export function App() {
   const [metadata, setMetadata] = useState<FileMetadata | null>(null);
@@ -283,29 +281,6 @@ export function App() {
               </button>
 
               <button
-                onClick={() => setActiveTab('query')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
-                  activeTab === 'query'
-                    ? 'bg-white text-black font-semibold shadow-sm'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
-                }`}
-              >
-                <Sliders className="w-4 h-4" strokeWidth={1.5} />
-                <span>2. Query Builder</span>
-                {queryState.selectedColumns.length > 0 && (
-                  <span
-                    className={`px-1.5 py-0.5 rounded text-xs ${
-                      activeTab === 'query'
-                        ? 'bg-black/10 text-black font-bold'
-                        : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
-                    }`}
-                  >
-                    {queryState.selectedColumns.length}
-                  </span>
-                )}
-              </button>
-
-              <button
                 onClick={() => setActiveTab('sql')}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
                   activeTab === 'sql'
@@ -314,7 +289,18 @@ export function App() {
                 }`}
               >
                 <Database className="w-4 h-4" strokeWidth={1.5} />
-                <span>3. SQL</span>
+                <span>2. SQL Query</span>
+                {queryState.selectedColumns.length > 0 && (
+                  <span
+                    className={`px-1.5 py-0.5 rounded text-xs ${
+                      activeTab === 'sql'
+                        ? 'bg-black/10 text-black font-bold'
+                        : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
+                    }`}
+                  >
+                    {queryState.selectedColumns.length} cols
+                  </span>
+                )}
                 <span
                   className={`text-xs uppercase px-1.5 py-0.5 rounded ${
                     activeTab === 'sql'
@@ -335,7 +321,7 @@ export function App() {
                 }`}
               >
                 <Flame className="w-4 h-4" strokeWidth={1.5} />
-                <span>4. PySpark</span>
+                <span>3. PySpark Code</span>
                 <span
                   className={`text-xs px-1.5 py-0.5 rounded ${
                     activeTab === 'pyspark'
@@ -358,16 +344,6 @@ export function App() {
                 selectedColumns={queryState.selectedColumns}
                 onToggleColumn={handleToggleColumn}
                 onSelectAllColumns={handleSelectAllColumns}
-                onNavigateTab={setActiveTab}
-              />
-            )}
-
-            {activeTab === 'query' && (
-              <QueryBuilder
-                columns={stats.columns}
-                queryState={queryState}
-                metadata={metadata}
-                onChange={setQueryState}
                 onNavigateTab={setActiveTab}
               />
             )}
