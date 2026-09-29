@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, ShieldCheck, Sparkles, RefreshCw, Download, FileSpreadsheet } from 'lucide-react';
+import { Database, Sparkles, RefreshCw, Download, FileSpreadsheet } from 'lucide-react';
 import { FileMetadata, DatasetStats } from '../types';
 
 interface NavbarProps {
@@ -51,30 +51,30 @@ export const Navbar: React.FC<NavbarProps> = ({ metadata, stats, onReset, onLoad
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-zinc-800/80 px-4 lg:px-8 py-3">
+    <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-zinc-800/80 px-4 lg:px-8 py-3.5">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
         {/* Logo and branding */}
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-100 flex items-center justify-center">
-            <Database className="w-4 h-4" strokeWidth={1.5} />
+          <div className="p-2.5 rounded-lg bg-zinc-950 border border-zinc-800 text-zinc-100 flex items-center justify-center">
+            <Database className="w-5 h-5" strokeWidth={1.5} />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-sm text-zinc-100 tracking-tight">DataInsight Studio</span>
-              <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-mono bg-zinc-900 text-zinc-400 border border-zinc-800">
-                <Sparkles className="w-3 h-3 mr-1 text-zinc-400" strokeWidth={1.5} /> offline
+              <span className="font-semibold text-base sm:text-lg text-zinc-100 tracking-tight">DataInsight Studio</span>
+              <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-zinc-900 text-zinc-300 border border-zinc-800">
+                <Sparkles className="w-3.5 h-3.5 mr-1 text-zinc-400" strokeWidth={1.5} /> offline
               </span>
             </div>
-            <p className="text-[11px] text-zinc-500 hidden sm:block font-normal">
-              Client-Side Data Profiler, SQL & PySpark
+            <p className="text-xs text-zinc-400 hidden sm:block font-normal">
+              In-Browser Data Profiler, SQL & PySpark Engine
             </p>
           </div>
         </div>
 
         {/* Status badges & Action buttons */}
-        <div className="flex items-center flex-wrap gap-2">
-          <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-950 border border-zinc-800 text-zinc-400 text-xs font-mono">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse" />
+        <div className="flex items-center flex-wrap gap-2.5">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-md bg-zinc-950 border border-zinc-800 text-zinc-300 text-xs font-mono">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse" />
             <span>100% private</span>
           </div>
 
@@ -82,34 +82,34 @@ export const Navbar: React.FC<NavbarProps> = ({ metadata, stats, onReset, onLoad
             <>
               <button
                 onClick={exportReport}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-300 hover:text-white text-xs font-medium transition border border-zinc-800"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-200 hover:text-white text-xs sm:text-sm font-medium transition border border-zinc-800"
                 title="Export statistical profile as JSON"
               >
-                <Download className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
+                <Download className="w-4 h-4 text-zinc-400" strokeWidth={1.5} />
                 <span>Export Report</span>
               </button>
               <button
                 onClick={onReset}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200 text-xs font-medium transition border border-zinc-800"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-400 hover:text-zinc-200 text-xs sm:text-sm font-medium transition border border-zinc-800"
                 title="Upload another file"
               >
-                <RefreshCw className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <RefreshCw className="w-4 h-4" strokeWidth={1.5} />
                 <span>Change File</span>
               </button>
             </>
           ) : (
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-zinc-500 hidden lg:inline font-mono">Samples:</span>
+            <div className="flex items-center gap-2.5">
+              <span className="text-xs text-zinc-400 hidden lg:inline font-mono">Samples:</span>
               <button
                 onClick={() => onLoadSample('ecommerce')}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-300 text-xs font-medium transition border border-zinc-800"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-200 text-xs sm:text-sm font-medium transition border border-zinc-800"
               >
-                <FileSpreadsheet className="w-3 h-3 text-zinc-400" strokeWidth={1.5} />
+                <FileSpreadsheet className="w-4 h-4 text-zinc-400" strokeWidth={1.5} />
                 <span>Sales CSV</span>
               </button>
               <button
                 onClick={() => onLoadSample('employees')}
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-300 text-xs font-medium transition border border-zinc-800"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-zinc-950 hover:bg-zinc-900 text-zinc-200 text-xs sm:text-sm font-medium transition border border-zinc-800"
               >
                 <span>Staff JSON</span>
               </button>

@@ -229,19 +229,19 @@ export function App() {
         ) : (
           <div className="space-y-6">
             {/* File Info Bar with Sheet Selector (if Excel) */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-zinc-950 border border-zinc-800/90">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
-                  <FileSpreadsheet className="w-4 h-4" strokeWidth={1.5} />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-xl bg-zinc-950 border border-zinc-800/90">
+              <div className="flex items-center gap-3.5">
+                <div className="p-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300">
+                  <FileSpreadsheet className="w-5 h-5" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">
+                  <h2 className="text-sm sm:text-base font-semibold text-zinc-100 flex items-center gap-2.5">
                     <span>{metadata.name}</span>
-                    <span className="text-[10px] uppercase px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
+                    <span className="text-xs uppercase px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
                       {metadata.type}
                     </span>
                   </h2>
-                  <p className="text-[11px] text-zinc-500 font-mono">
+                  <p className="text-xs text-zinc-400 font-mono mt-0.5">
                     {metadata.rowCount.toLocaleString()} rows • {metadata.columnCount} columns •{' '}
                     {(metadata.size / 1024).toFixed(1)} KB
                   </p>
@@ -250,9 +250,9 @@ export function App() {
 
               {/* Multi-sheet selector for Excel */}
               {metadata.sheetNames && metadata.sheetNames.length > 1 && (
-                <div className="flex items-center gap-2 bg-zinc-900 px-2.5 py-1 rounded-md border border-zinc-800 text-xs font-mono">
-                  <Layers className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-                  <span className="text-zinc-500">Sheet:</span>
+                <div className="flex items-center gap-2 bg-zinc-900 px-3 py-1.5 rounded-md border border-zinc-800 text-xs sm:text-sm font-mono">
+                  <Layers className="w-4 h-4 text-zinc-400" strokeWidth={1.5} />
+                  <span className="text-zinc-400">Sheet:</span>
                   <select
                     value={metadata.activeSheet}
                     onChange={(e) => handleSheetChange(e.target.value)}
@@ -269,35 +269,35 @@ export function App() {
             </div>
 
             {/* Minimalist Navigation Tabs */}
-            <div className="flex items-center gap-1.5 border-b border-zinc-850 pb-2 overflow-x-auto">
+            <div className="flex items-center gap-2 border-b border-zinc-850 pb-2.5 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('stats')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
                   activeTab === 'stats'
                     ? 'bg-white text-black font-semibold shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <BarChart3 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <BarChart3 className="w-4 h-4" strokeWidth={1.5} />
                 <span>1. Profiler & Stats</span>
               </button>
 
               <button
                 onClick={() => setActiveTab('query')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
                   activeTab === 'query'
                     ? 'bg-white text-black font-semibold shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Sliders className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <Sliders className="w-4 h-4" strokeWidth={1.5} />
                 <span>2. Query Builder</span>
                 {queryState.selectedColumns.length > 0 && (
                   <span
-                    className={`px-1 py-0.2 rounded text-[10px] ${
+                    className={`px-1.5 py-0.5 rounded text-xs ${
                       activeTab === 'query'
-                        ? 'bg-black/10 text-black'
-                        : 'bg-zinc-900 text-zinc-500'
+                        ? 'bg-black/10 text-black font-bold'
+                        : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
                     }`}
                   >
                     {queryState.selectedColumns.length}
@@ -307,19 +307,19 @@ export function App() {
 
               <button
                 onClick={() => setActiveTab('sql')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
                   activeTab === 'sql'
                     ? 'bg-white text-black font-semibold shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Database className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <Database className="w-4 h-4" strokeWidth={1.5} />
                 <span>3. SQL</span>
                 <span
-                  className={`text-[10px] uppercase px-1 py-0.2 rounded ${
+                  className={`text-xs uppercase px-1.5 py-0.5 rounded ${
                     activeTab === 'sql'
-                      ? 'bg-black/10 text-black'
-                      : 'bg-zinc-900 text-zinc-500'
+                      ? 'bg-black/10 text-black font-bold'
+                      : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
                   }`}
                 >
                   {queryState.dialect}
@@ -328,19 +328,19 @@ export function App() {
 
               <button
                 onClick={() => setActiveTab('pyspark')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono transition ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-mono transition ${
                   activeTab === 'pyspark'
                     ? 'bg-white text-black font-semibold shadow-sm'
                     : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-950'
                 }`}
               >
-                <Flame className="w-3.5 h-3.5" strokeWidth={1.5} />
+                <Flame className="w-4 h-4" strokeWidth={1.5} />
                 <span>4. PySpark</span>
                 <span
-                  className={`text-[10px] px-1 py-0.2 rounded ${
+                  className={`text-xs px-1.5 py-0.5 rounded ${
                     activeTab === 'pyspark'
-                      ? 'bg-black/10 text-black'
-                      : 'bg-zinc-900 text-zinc-500'
+                      ? 'bg-black/10 text-black font-bold'
+                      : 'bg-zinc-900 text-zinc-400 border border-zinc-800'
                   }`}
                 >
                   {queryState.sparkConfig.mode === 'dataframe' ? 'API' : 'SQL'}
@@ -394,7 +394,7 @@ export function App() {
       </main>
 
       {/* Minimalist Footer */}
-      <footer className="border-t border-zinc-900 py-3 px-6 text-center text-[11px] font-mono text-zinc-600">
+      <footer className="border-t border-zinc-900 py-3.5 px-6 text-center text-xs font-mono text-zinc-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
           <span>DataInsight Studio • 100% Client-Side Private</span>
           <span>Offline Profiler & Query Engine</span>

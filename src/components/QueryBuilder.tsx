@@ -174,19 +174,19 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
 
   return (
     <div className="space-y-6">
-      {/* Deterministic AI Assistant Bar - Minimalist Black */}
-      <div className="rounded-xl bg-zinc-950 border border-zinc-800/90 p-4 shadow-sm">
-        <div className="flex items-center gap-2 mb-2 text-zinc-300">
-          <Sparkles className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-          <span className="text-[11px] font-mono uppercase tracking-wider font-medium">
+      {/* Deterministic AI Assistant Bar */}
+      <div className="rounded-xl bg-zinc-950 border border-zinc-800/90 p-5 shadow-sm">
+        <div className="flex items-center gap-2 mb-2.5 text-zinc-300">
+          <Sparkles className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+          <span className="text-xs font-mono uppercase tracking-wider font-semibold">
             Natural Query Assistant
           </span>
-          <span className="text-[11px] text-zinc-500 font-mono hidden sm:inline">
+          <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
             • 100% offline schema parsing
           </span>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-2.5">
           <div className="relative flex-1">
             <input
               type="text"
@@ -196,23 +196,23 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
               onKeyDown={(e) => {
                 if (e.key === 'Enter') handleApplyNaturalQuery();
               }}
-              className="w-full px-3.5 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-500 text-xs focus:outline-none focus:border-zinc-600 transition"
+              className="w-full px-4 py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-600 transition"
             />
           </div>
           <button
             onClick={() => handleApplyNaturalQuery()}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-white hover:bg-zinc-200 text-black font-medium text-xs transition duration-150"
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-white hover:bg-zinc-200 text-black font-semibold text-sm transition duration-150"
           >
-            <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span>Generate</span>
+            <Sparkles className="w-4 h-4" strokeWidth={1.5} />
+            <span>Generate Query</span>
           </button>
         </div>
 
         {/* Suggestion Chips */}
         {suggestions.length > 0 && (
-          <div className="mt-3 flex items-center gap-1.5 flex-wrap">
-            <span className="text-[11px] text-zinc-500 flex items-center gap-1 font-mono">
-              <Lightbulb className="w-3 h-3 text-zinc-400" strokeWidth={1.5} /> Suggestions:
+          <div className="mt-3.5 flex items-center gap-2 flex-wrap">
+            <span className="text-xs text-zinc-400 flex items-center gap-1 font-mono">
+              <Lightbulb className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} /> Suggestions:
             </span>
             {suggestions.map((sug, i) => (
               <button
@@ -221,7 +221,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                   setNaturalPrompt(sug);
                   handleApplyNaturalQuery(sug);
                 }}
-                className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition"
+                className="text-xs font-mono px-3 py-1 rounded-md bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 transition"
               >
                 {sug}
               </button>
@@ -231,26 +231,26 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
 
         {/* AI Intent Explanation Feedback */}
         {aiExplanation && (
-          <div className="mt-3 p-2.5 rounded-lg bg-zinc-900/60 border border-zinc-800 text-xs text-zinc-300 flex items-start gap-2 font-mono">
-            <Sparkles className="w-3.5 h-3.5 mt-0.5 text-zinc-400 flex-shrink-0" strokeWidth={1.5} />
+          <div className="mt-3.5 p-3 rounded-lg bg-zinc-900/70 border border-zinc-800 text-xs sm:text-sm text-zinc-200 flex items-start gap-2.5 font-mono">
+            <Sparkles className="w-4 h-4 mt-0.5 text-zinc-300 flex-shrink-0" strokeWidth={1.5} />
             <span>
-              <strong>Parsed intent:</strong> {aiExplanation}
+              <strong className="text-white">Parsed intent:</strong> {aiExplanation}
             </span>
           </div>
         )}
       </div>
 
       {/* Visual Interactive Query Builder Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Selected Columns & Aggregations (7 cols) */}
-        <div className="lg:col-span-7 space-y-5">
+        <div className="lg:col-span-7 space-y-6">
           {/* Columns Section */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3">
+          <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Columns className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-                <h3 className="text-xs font-semibold text-zinc-200">Selected Projections</h3>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
+                <Columns className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-100">Selected Projections</h3>
+                <span className="text-xs px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
                   {queryState.selectedColumns.length}
                 </span>
               </div>
@@ -262,7 +262,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                   onChange={(e) => {
                     if (e.target.value) handleAddColumn(e.target.value);
                   }}
-                  className="px-2.5 py-1 rounded bg-zinc-900 text-xs text-zinc-300 border border-zinc-800 hover:border-zinc-700 focus:outline-none cursor-pointer font-mono"
+                  className="px-3 py-1.5 rounded-lg bg-zinc-900 text-xs sm:text-sm text-zinc-200 border border-zinc-800 hover:border-zinc-700 focus:outline-none cursor-pointer font-mono"
                 >
                   <option value="" disabled>
                     + Add Column
@@ -277,21 +277,21 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
             </div>
 
             {queryState.selectedColumns.length === 0 ? (
-              <div className="p-5 text-center border border-dashed border-zinc-850 rounded-lg text-zinc-500 text-xs font-mono">
+              <div className="p-6 text-center border border-dashed border-zinc-850 rounded-xl text-zinc-500 text-sm font-mono">
                 No specific columns selected. Will output (<code>*</code>).
               </div>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 {queryState.selectedColumns.map((sc) => {
                   const colStat = columns.find((c) => c.name === sc.column);
                   return (
                     <div
                       key={sc.id}
-                      className="flex items-center gap-2 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-xs"
+                      className="flex items-center gap-2.5 p-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-sm"
                     >
-                      <span className="font-mono text-zinc-200 flex-1 truncate text-xs">
+                      <span className="font-mono text-zinc-200 flex-1 truncate text-sm">
                         {sc.column}
-                        <span className="text-zinc-500 text-[10px] ml-1.5">({colStat?.type})</span>
+                        <span className="text-zinc-500 text-xs ml-2">({colStat?.type})</span>
                       </span>
 
                       {/* Aggregation Selector */}
@@ -300,7 +300,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                         onChange={(e) =>
                           handleUpdateColumnAgg(sc.id, e.target.value as AggregationFunction)
                         }
-                        className="px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-300 text-xs font-mono focus:outline-none"
+                        className="px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none"
                       >
                         <option value="NONE">No Aggregation</option>
                         <option value="COUNT">COUNT()</option>
@@ -317,16 +317,16 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                         placeholder="Alias (optional)"
                         value={sc.alias}
                         onChange={(e) => handleUpdateColumnAlias(sc.id, e.target.value)}
-                        className="w-24 px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono placeholder-zinc-600 focus:outline-none focus:border-zinc-600"
+                        className="w-28 px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono placeholder-zinc-600 focus:outline-none focus:border-zinc-600"
                       />
 
                       {/* Remove Button */}
                       <button
                         onClick={() => handleRemoveColumn(sc.id)}
-                        className="p-1 rounded text-zinc-500 hover:text-zinc-200 transition"
+                        className="p-1.5 rounded text-zinc-500 hover:text-zinc-200 transition"
                         title="Remove column"
                       >
-                        <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                        <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                       </button>
                     </div>
                   );
@@ -336,35 +336,35 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
           </div>
 
           {/* Filters / WHERE Section */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3">
+          <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Filter className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-                <h3 className="text-xs font-semibold text-zinc-200">Filters (WHERE Conditions)</h3>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
+                <Filter className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-100">Filters (WHERE Conditions)</h3>
+                <span className="text-xs px-2 py-0.5 rounded bg-zinc-900 text-zinc-400 font-mono border border-zinc-800">
                   {queryState.filters.length}
                 </span>
               </div>
 
               <button
                 onClick={handleAddFilter}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-850 text-xs text-zinc-300 border border-zinc-800 transition font-mono"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 text-xs sm:text-sm text-zinc-200 border border-zinc-800 transition font-mono"
               >
-                <Plus className="w-3 h-3 text-zinc-400" strokeWidth={1.5} />
+                <Plus className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
                 <span>Add Filter</span>
               </button>
             </div>
 
             {queryState.filters.length === 0 ? (
-              <div className="p-5 text-center border border-dashed border-zinc-850 rounded-lg text-zinc-500 text-xs font-mono">
+              <div className="p-6 text-center border border-dashed border-zinc-850 rounded-xl text-zinc-500 text-sm font-mono">
                 No filter conditions applied. All rows included.
               </div>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 {queryState.filters.map((filt, idx) => (
                   <div
                     key={filt.id}
-                    className="flex flex-wrap items-center gap-2 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-xs"
+                    className="flex flex-wrap items-center gap-2.5 p-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-sm"
                   >
                     {/* Combinator (AND/OR) if not the first */}
                     {idx > 0 && (
@@ -375,7 +375,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                             combinator: e.target.value as 'AND' | 'OR',
                           })
                         }
-                        className="px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-300 font-mono text-xs"
+                        className="px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 font-mono text-xs font-semibold"
                       >
                         <option value="AND">AND</option>
                         <option value="OR">OR</option>
@@ -386,7 +386,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                     <select
                       value={filt.column}
                       onChange={(e) => handleUpdateFilter(filt.id, { column: e.target.value })}
-                      className="px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono focus:outline-none"
+                      className="px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none"
                     >
                       {columns.map((c) => (
                         <option key={c.name} value={c.name}>
@@ -401,7 +401,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                       onChange={(e) =>
                         handleUpdateFilter(filt.id, { operator: e.target.value as FilterOperator })
                       }
-                      className="px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono focus:outline-none"
+                      className="px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none"
                     >
                       <option value="=">=</option>
                       <option value="!=">!=</option>
@@ -424,17 +424,17 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                         placeholder="Value..."
                         value={filt.value}
                         onChange={(e) => handleUpdateFilter(filt.id, { value: e.target.value })}
-                        className="flex-1 min-w-[100px] px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono focus:outline-none focus:border-zinc-600"
+                        className="flex-1 min-w-[120px] px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none focus:border-zinc-600"
                       />
                     )}
 
                     {/* Delete */}
                     <button
                       onClick={() => handleRemoveFilter(filt.id)}
-                      className="p-1 rounded text-zinc-500 hover:text-zinc-200 transition"
+                      className="p-1.5 rounded text-zinc-500 hover:text-zinc-200 transition"
                       title="Remove filter"
                     >
-                      <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 ))}
@@ -444,17 +444,17 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
         </div>
 
         {/* Right Column: Group By, Order By & Query Settings (5 cols) */}
-        <div className="lg:col-span-5 space-y-5">
+        <div className="lg:col-span-5 space-y-6">
           {/* Group By Section */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-2.5">
+          <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3">
             <div className="flex items-center gap-2">
-              <Layers className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-              <h3 className="text-xs font-semibold text-zinc-200">Group By</h3>
+              <Layers className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+              <h3 className="text-sm font-semibold text-zinc-100">Group By</h3>
             </div>
-            <p className="text-[11px] text-zinc-500">
+            <p className="text-xs text-zinc-400">
               Auto-grouped when aggregate expressions exist.
             </p>
-            <div className="flex flex-wrap gap-1 max-h-32 overflow-y-auto pt-1">
+            <div className="flex flex-wrap gap-1.5 max-h-36 overflow-y-auto pt-1">
               {columns.map((c) => {
                 const isGrouped = queryState.groupBy.includes(c.name);
                 return (
@@ -466,10 +466,10 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                         : [...queryState.groupBy, c.name];
                       onChange({ ...queryState, groupBy: newGroup });
                     }}
-                    className={`px-2 py-0.5 rounded text-[11px] font-mono transition border ${
+                    className={`px-3 py-1 rounded-md text-xs font-mono transition border ${
                       isGrouped
-                        ? 'bg-white text-black border-white font-medium'
-                        : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-zinc-200 hover:border-zinc-700'
+                        ? 'bg-white text-black border-white font-semibold'
+                        : 'bg-zinc-900 text-zinc-300 border-zinc-800 hover:text-white hover:border-zinc-700'
                     }`}
                   >
                     {c.name}
@@ -480,34 +480,34 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
           </div>
 
           {/* Order By Section */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3">
+          <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ArrowUpDown className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-                <h3 className="text-xs font-semibold text-zinc-200">Order By / Sort</h3>
+                <ArrowUpDown className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+                <h3 className="text-sm font-semibold text-zinc-100">Order By / Sort</h3>
               </div>
               <button
                 onClick={handleAddOrderBy}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-850 text-xs text-zinc-300 border border-zinc-800 transition font-mono"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 text-xs sm:text-sm text-zinc-200 border border-zinc-800 transition font-mono"
               >
-                <Plus className="w-3 h-3 text-zinc-400" strokeWidth={1.5} />
+                <Plus className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
                 <span>Add Sort</span>
               </button>
             </div>
 
             {queryState.orderBy.length === 0 ? (
-              <p className="text-[11px] text-zinc-500 font-mono">No sorting applied.</p>
+              <p className="text-xs text-zinc-500 font-mono">No sorting applied.</p>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 {queryState.orderBy.map((ord) => (
                   <div
                     key={ord.id}
-                    className="flex items-center gap-2 p-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-xs"
+                    className="flex items-center gap-2 p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-sm"
                   >
                     <select
                       value={ord.column}
                       onChange={(e) => handleUpdateOrderBy(ord.id, { column: e.target.value })}
-                      className="flex-1 px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono"
+                      className="flex-1 px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono"
                     >
                       {columns.map((c) => (
                         <option key={c.name} value={c.name}>
@@ -523,7 +523,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                           direction: e.target.value as 'ASC' | 'DESC',
                         })
                       }
-                      className="px-2 py-1 rounded bg-black border border-zinc-800 text-zinc-200 text-xs font-mono"
+                      className="px-2.5 py-1.5 rounded bg-black border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono"
                     >
                       <option value="ASC">ASC</option>
                       <option value="DESC">DESC</option>
@@ -531,9 +531,9 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
 
                     <button
                       onClick={() => handleRemoveOrderBy(ord.id)}
-                      className="p-1 rounded text-zinc-500 hover:text-zinc-200"
+                      className="p-1.5 rounded text-zinc-500 hover:text-zinc-200"
                     >
-                      <Trash2 className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      <Trash2 className="w-4 h-4" strokeWidth={1.5} />
                     </button>
                   </div>
                 ))}
@@ -542,25 +542,25 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
           </div>
 
           {/* Table Settings & Limits */}
-          <div className="p-4 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3">
+          <div className="p-5 rounded-xl bg-zinc-950 border border-zinc-800/90 space-y-3.5">
             <div className="flex items-center gap-2">
-              <Settings className="w-3.5 h-3.5 text-zinc-400" strokeWidth={1.5} />
-              <h3 className="text-xs font-semibold text-zinc-200">Execution Parameters</h3>
+              <Settings className="w-4 h-4 text-zinc-300" strokeWidth={1.5} />
+              <h3 className="text-sm font-semibold text-zinc-100">Execution Parameters</h3>
             </div>
 
-            <div className="grid grid-cols-2 gap-2.5 text-xs">
+            <div className="grid grid-cols-2 gap-3 text-xs sm:text-sm">
               <div>
-                <label className="block text-zinc-500 mb-1 font-mono text-[11px]">Table / View</label>
+                <label className="block text-zinc-400 mb-1 font-mono text-xs">Table / View</label>
                 <input
                   type="text"
                   value={queryState.tableName}
                   onChange={(e) => onChange({ ...queryState, tableName: e.target.value })}
-                  className="w-full px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs font-mono focus:outline-none focus:border-zinc-600"
+                  className="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none focus:border-zinc-600"
                 />
               </div>
 
               <div>
-                <label className="block text-zinc-500 mb-1 font-mono text-[11px]">Limit Rows</label>
+                <label className="block text-zinc-400 mb-1 font-mono text-xs">Limit Rows</label>
                 <input
                   type="number"
                   min={1}
@@ -572,7 +572,7 @@ export const QueryBuilder: React.FC<QueryBuilderProps> = ({ columns, queryState,
                       limit: parseInt(e.target.value, 10) || 0,
                     })
                   }
-                  className="w-full px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs font-mono focus:outline-none focus:border-zinc-600"
+                  className="w-full px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-200 text-xs sm:text-sm font-mono focus:outline-none focus:border-zinc-600"
                 />
               </div>
             </div>
